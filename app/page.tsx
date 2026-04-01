@@ -15,10 +15,10 @@ export default function Home() {
 
     try {
       // THIS is your live Render Backend URL!
-      const response = await fetch("https://genai-backend-5.onrender.com/api/generate", {
+      const response = await fetch("https://genai-backend-7.onrender.com/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic }),
+        body: JSON.stringify({ prompt: topic }),
       });
 
       const data = await response.json();
