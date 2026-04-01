@@ -18,7 +18,7 @@ export default function Home() {
     try {
       // ⚠️ REPLACE THE URL BELOW WITH YOUR ACTUAL RENDER BACKEND URL ⚠️
       // Make sure it ends with /api/generate
-      const response = await fetch("https://genai-backend-7.onrender.com", {
+      const response = await fetch("https://genai-backend-7.onrender.com/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: topic }),
