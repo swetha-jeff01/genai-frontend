@@ -96,16 +96,17 @@ export default function Home() {
 
           {!isLoading && (tweet || imageUrl) && (
             <div className="flex flex-col w-full gap-6">
-              {/* Display Image if it exists */}
-              {imageUrl && (
-                <div className="w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900">
-                  <img 
-                    src={imageUrl} 
-                    alt="AI Generated" 
-                    className="w-full h-auto object-cover"
-                  />
-                </div>
-              )}
+             {/* Display Image if it exists */}
+{imageUrl && (
+  <div className="w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900">
+    <img 
+      src={imageUrl} 
+      alt="AI Generated" 
+      className="w-full h-auto object-cover"
+      referrerPolicy="no-referrer" 
+    />
+  </div>
+)} 
               
               {/* Display Tweet text */}
               {tweet && (
