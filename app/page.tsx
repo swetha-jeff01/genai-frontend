@@ -16,7 +16,6 @@ export default function Home() {
     setImageUrl("");
 
     try {
-      // Pointing directly to your live Render backend
       const response = await fetch("https://genai-backend-7.onrender.com/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,7 +26,7 @@ export default function Home() {
       
       if (response.ok) {
         setTweet(data.result);
-        setImageUrl(data.image);
+        setImageUrl(data.image); // Receives the URL from the backend
       } else {
         setTweet("Oops! Something went wrong: " + (data.error || "Unknown error"));
       }
@@ -57,7 +56,7 @@ export default function Home() {
       <div className="w-full max-w-2xl flex flex-col gap-4">
         <input
           type="text"
-          placeholder="Enter your topic (e.g., productivity, AI trends)"
+          placeholder="Enter your topic (e.g., A cyberpunk city on Mars)"
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           className="w-full bg-black border border-zinc-800 rounded-xl p-4 text-white placeholder:text-zinc-600 focus:outline-none focus:border-zinc-500 transition-colors"
@@ -71,11 +70,7 @@ export default function Home() {
           disabled={isLoading || !topic}
           className="w-full bg-[#10a37f] hover:bg-[#0e906f] disabled:bg-zinc-800 disabled:text-zinc-500 text-white rounded-xl p-4 font-semibold transition-colors flex justify-center items-center gap-2"
         >
-          {isLoading ? (
-            "⏳ Generating Magic..."
-          ) : (
-            "✨ Generate Tweet"
-          )}
+          {isLoading ? "⏳ Generating Magic..." : "✨ Generate Tweet"}
         </button>
       </div>
 
@@ -96,28 +91,19 @@ export default function Home() {
           {!isLoading && (tweet || imageUrl) && (
             <div className="flex flex-col w-full gap-6">
               
-              {/* Display Image (With fix for broken Vercel loading) */}
+              {/* CLEAN IMAGE TAG */}
               {imageUrl && (
-                <div className="w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 flex flex-col items-center">
+                <div className="w-full rounded-lg overflow-hidden border border-zinc-800 shadow-lg bg-zinc-900">
                   <img 
                     src={imageUrl} 
-                    alt="AI Generated" 
+                    alt="Generated Content" 
                     className="w-full h-auto object-cover"
-                    referrerPolicy="no-referrer"
-                    onError={(e) => e.currentTarget.style.display = 'none'} 
+                    crossOrigin="anonymous"
                   />
-                  <a 
-                    href={imageUrl} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-[#10a37f] hover:underline p-4 font-medium"
-                  >
-                    🖼️ Click here to view generated image
-                  </a>
                 </div>
               )}
               
-              {/* Display Tweet text */}
+              {/* Tweet text */}
               {tweet && (
                 <p className="text-lg text-zinc-200 whitespace-pre-wrap leading-relaxed">
                   {tweet}
