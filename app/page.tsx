@@ -16,8 +16,7 @@ export default function Home() {
     setImageUrl("");
 
     try {
-      // ⚠️ REPLACE THE URL BELOW WITH YOUR ACTUAL RENDER BACKEND URL ⚠️
-      // Make sure it ends with /api/generate
+      // Pointing directly to your live Render backend
       const response = await fetch("https://genai-backend-7.onrender.com/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -96,17 +95,27 @@ export default function Home() {
 
           {!isLoading && (tweet || imageUrl) && (
             <div className="flex flex-col w-full gap-6">
-             {/* Display Image if it exists */}
-{imageUrl && (
-  <div className="w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900">
-    <img 
-      src={imageUrl} 
-      alt="AI Generated" 
-      className="w-full h-auto object-cover"
-      referrerPolicy="no-referrer" 
-    />
-  </div>
-)} 
+              
+              {/* Display Image (With fix for broken Vercel loading) */}
+              {imageUrl && (
+                <div className="w-full rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 flex flex-col items-center">
+                  <img 
+                    src={imageUrl} 
+                    alt="AI Generated" 
+                    className="w-full h-auto object-cover"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => e.currentTarget.style.display = 'none'} 
+                  />
+                  <a 
+                    href={imageUrl} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="text-[#10a37f] hover:underline p-4 font-medium"
+                  >
+                    🖼️ Click here to view generated image
+                  </a>
+                </div>
+              )}
               
               {/* Display Tweet text */}
               {tweet && (
